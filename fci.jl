@@ -83,7 +83,7 @@ function find_bond_potential(min_length, step_size, max_length)
         end
         FCI = [2*h_11+J_11 K_12; K_12 2*h_22+J_22]
         z = eigvals(FCI)
-        println(z)
+        #println(z)
         fci_energies[m] = z[1] + 1/dist
     end
     return bond_energies(distances, total_energies, fci_energies)
@@ -93,6 +93,9 @@ step_size = 0.01
 max_length = 6.0
 
 bond = find_bond_potential(min_length, step_size, max_length)
-println(bond.distances)
-plot(bond.distances, bond.hf_energies)
-plot!(bond.distances, bond.fci_energies)
+plot(bond.distances, bond.hf_energies, label="Hartree-Fock")
+plot!(bond.distances, bond.fci_energies, label="Full CI")
+xlabel!("Distance (AU)")
+ylabel!("Energy (Hartree)")
+
+
